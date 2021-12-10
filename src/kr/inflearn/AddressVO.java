@@ -5,7 +5,9 @@ public class AddressVO {
     private String jibunAddress;
     private String x;
     private String y;
-    public AddressVO() {}
+
+    public AddressVO() {
+    }
 
     public AddressVO(String roadAddress, String jibunAddress, String x, String y) {
         super();
@@ -49,11 +51,7 @@ public class AddressVO {
 
     @Override
     public String toString() {
-        return "AddressVO{" +
-                "roadAddress='" + roadAddress + '\'' +
-                ", jibunAddress='" + jibunAddress + '\'' +
-                ", x='" + x + '\'' +
-                ", y='" + y + '\'' +
-                '}';
+        return "AddressVO [roadAddress=" + roadAddress + ", jibunAddress=" + jibunAddress + ", x=" + x + ", y=" + y
+                + "]";
     }
 }

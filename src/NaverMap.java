@@ -69,7 +69,6 @@ public class NaverMap implements ActionListener {
             URL_STATICMAP += "center=" + vo.getX() + "," + vo.getY();
             URL_STATICMAP += "&level=16&w=700&h=500";
             URL_STATICMAP += "&markers=type:t|size:mid|pos:" + pos + "|label:" + URLEncoder.encode(vo.getRoadAddress(), "UTF-8");
-            ;
             URL url = new URL(URL_STATICMAP);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
@@ -77,31 +76,30 @@ public class NaverMap implements ActionListener {
             con.setRequestProperty("X-NCP-APIGW-API-KEY", "pcfd4vM5IVLhIpr1dgfWZyqVDIQZoCD6o3tCkQwx");
             int responseCode = con.getResponseCode();
             BufferedReader br;
-            if (responseCode == 200)
+            if (responseCode == 200) {
                 InputStream is = con.getInputStream();
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            String tempname = Long.valueOf(new Date().getTime()).toString();
-            File f = new File(tempname + ".jpg");
-            f.createNewFile();
-            OutputStream outputStream = new FileOutputStream(f);
-            while ((read = is.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, read);
+                int read = 0;
+                byte[] bytes = new byte[1024];
+                String tempname = Long.valueOf(new Date().getTime()).toString();
+                File f = new File(tempname + ".jpg");
+                f.createNewFile();
+                OutputStream outputStream = new FileOutputStream(f);
+                while ((read = is.read(bytes)) != -1) {
+                    outputStream.write(bytes, 0, read);
+                }
+                is.close();
+                ImageIcon img = new ImageIcon(f.getName());
+                naverMap.imageLabel.setIcon(img);
+                naverMap.resAddress.setText(vo.getRoadAddress());
+                naverMap.jibunAddress.setText(vo.getJibunAddress());
+                naverMap.resX.setText(vo.getX());
+                naverMap.resY.setText(vo.getY());
+            } else {
+                System.out.println(responseCode);
             }
-            is.close();
-            ImageIcon img = new ImageIcon(f.getName());
-            naverMap.imageLabel.setIcon(img);
-            naverMap.resAddress.setText(vo.getRoadAddress());
-            naverMap.jibunAddress.setText(vo.getJibunAddress());
-            naverMap.resX.setText(vo.getX());
-            naverMap.resY.setText(vo.getY());
-        } else{
-            System.out.println(responseCode);
+        } catch (
+                Exception e) {
+            System.out.println(e);
         }
-    } catch(
-    Exception e)
-
-    {
-        System.out.println(e);
     }
 }
